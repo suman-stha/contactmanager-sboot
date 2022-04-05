@@ -14,4 +14,11 @@ public class HomeController {
         return "home";
 
     }
+
+    @RequestMapping("/about")
+    public String about(Model model) {
+        model.addAttribute("title", "About-smart contact manager");
+        return "about";
+
+    }
 }
