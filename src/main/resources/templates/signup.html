@@ -14,16 +14,19 @@
             <div class="row">
                 <div class="col-md-8 offset-md-2">
                     <div class="my-card mt-1">
+
                         <div th:if="${session.message}" th:classappend="${session.message.type}" class="alert "
                             role="alert">
 
                             <p class="text-center" th:text="${session.message.content}"></p>
                             <th:block th:text="${#session.removeAttribute('message')}"></th:block>
                         </div>
-                        <div class="container">
+                        <div class="conatiner text-center">
                             <img class="" style="width: 80px ;" src="" th:src="@{/img/membership.png}" alt="">
-
                         </div>
+
+
+
 
                         <h1 class="text-center">Register Here!!</h1>
                         <form action="" th:action="@{/do_register}" method="post" th:object="${user}">
@@ -76,9 +79,9 @@
 
 
                             <div class="container text-center">
-                                <button type="submit" class="btn bg-primary btn-block text-white">Submit</button>
+                                <button type="submit" class="btn bg-primary btn text-white">Submit</button>
 
-                                <button type="reset" class="btn btn-warning btn-block">Reset</button>
+                                <button type="reset" class="btn btn-warning btn">Reset</button>
                             </div>
                         </form>
                     </div>
