@@ -13,11 +13,20 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 offset-md-2">
-                    <div class="my-card mt-2">
-                        <div class="container">
-                            <img class="" style="width: 80px ;" src="" th:src="@{/img/membership.png}" alt="">
+                    <div class="my-card mt-1">
 
+                        <div th:if="${session.message}" th:classappend="${session.message.type}" class="alert "
+                            role="alert">
+
+                            <p class="text-center" th:text="${session.message.content}"></p>
+                            <th:block th:text="${#session.removeAttribute('message')}"></th:block>
                         </div>
+                        <div class="conatiner text-center">
+                            <img class="" style="width: 80px ;" src="" th:src="@{/img/membership.png}" alt="">
+                        </div>
+
+
+
 
                         <h1 class="text-center">Register Here!!</h1>
                         <form action="" th:action="@{/do_register}" method="post" th:object="${user}">
@@ -26,16 +35,24 @@
                                 <label for="name_field">Your name</label>
                                 <input type="text" class="form-control" id="name_field" name="name"
                                     aria-describedby="emailHelp" placeholder="Enter here" required
-                                    th:value="${user.name}">
+                                    th:value="${user.name}"
+                                    th:classappend="${#fields.hasErrors('name')?'is-invalid':''}">
 
+                                <div th:each="e : ${#fields.errors('name')}" th:text="${e}"
+                                    id="validationServer03Feedback" class="invalid-feedback">
 
+                                </div>
                                 <!-- email field -->
                             </div>
                             <div class="form-group">
                                 <label for="email_field">Your email</label>
                                 <input type="email" class="form-control" id="email_field" name="email"
                                     aria-describedby="emailHelp" placeholder="Enter here" th:value="${user.email}"
-                                    required>
+                                    th:classappend="${#fields.hasErrors('email')}?'is-invalid'" required>
+                                <div th:each="e : ${#fields.errors('email')}" th:text="${e}" id="emailField"
+                                    class="invalid-feedback">
+
+                                </div>
 
                                 <!-- password field  -->
                             </div>
@@ -62,9 +79,9 @@
 
 
                             <div class="container text-center">
-                                <button type="submit" class="btn bg-primary btn-block text-white">Submit</button>
+                                <button type="submit" class="btn bg-primary btn text-white">Submit</button>
 
-                                <button type="reset" class="btn btn-warning btn-block">Reset</button>
+                                <button type="reset" class="btn btn-warning btn">Reset</button>
                             </div>
                         </form>
                     </div>
