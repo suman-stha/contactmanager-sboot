@@ -37,9 +37,7 @@
                 <li class="nav-item">
                     <a class="nav-link " href="#"><span th:text="${user.name}"></span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link " th:href="@{/logout}" href="#">Logout</a>
-                </li>
+
             </ul>
 
         </div>
@@ -49,12 +47,13 @@
 
 
     <!-- This is side bar  -->
-    <div class="sidebar">
+    <div class="sidebar mt-2">
 
         <span onclick="toggleSidebar()" class="crossBtn">&times;</span>
-        <a href="#" class="item"><i class="fa-solid fa-house-user"></i> Home</a>
+        <a href="#" th:href="@{/user/index}" class="item"><i class="fa-solid fa-house-user"></i> Home</a>
         <a href="#" class="item"><i class="fa-solid fa-address-book"></i> View Contact</a>
-        <a href="#" class="item"><i class="fa-solid fa-file-circle-plus"></i> Add Contact</a>
+        <a href="#" th:href="@{/user/add-contact}" class="item"><i class="fa-solid fa-file-circle-plus"></i> Add
+            Contact</a>
         <a href="#" class="item"><i class="fa-solid fa-id-card-clip"></i> Your Profile</a>
         <a href="#" class="item"><i class="fa-solid fa-gear"></i> Settings</a>
         <a href="#" th:href="@{/logout}" class="item"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
@@ -64,7 +63,7 @@
     <!-- End sidebar -->
 
     <!-- Content area -->
-    <div class="content">
+    <div class="content mt-5">
         <i onclick="toggleSidebar()" class="fas fa-bars m-3"></i>
         <div th:replace="${content}"></div>
 
