@@ -116,11 +116,13 @@ public class Contact {
         this.description = description;
     }
 
-    @Override
-    public String toString() {
-        return "Contact [cId=" + cId + ", description=" + description + ", email=" + email + ", image=" + image
-                + ", name=" + name + ", phone=" + phone + ", secondName=" + secondName + ", user=" + user + ", work="
-                + work + "]";
-    }
+    // @Override
+    // public String toString() {
+    // return "Contact [cId=" + cId + ", description=" + description + ", email=" +
+    // email + ", image=" + image
+    // + ", name=" + name + ", phone=" + phone + ", secondName=" + secondName + ",
+    // user=" + user + ", work="
+    // + work + "]";
+    // }
 
 }
