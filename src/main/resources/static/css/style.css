@@ -112,3 +112,12 @@ body {
     font-size: 36px;
     cursor: pointer;
 }
+
+.my_profile_pciture {
+
+    width: 35px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid black;
+}

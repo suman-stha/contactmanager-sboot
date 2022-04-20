@@ -6,9 +6,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import com.smart.smartcontactmanager.dao.ContactRepository;
 import com.smart.smartcontactmanager.dao.UserRepository;
 import com.smart.smartcontactmanager.entities.Contact;
 import com.smart.smartcontactmanager.entities.User;
@@ -30,6 +32,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class UserController {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ContactRepository contactRepository;
 
     // method for adding common data to response
     @ModelAttribute
@@ -74,6 +78,7 @@ public class UserController {
             if (file.isEmpty()) {
                 // if the file is empty then try our message
                 System.out.println("File is empty");
+                contact.setImage("contact.png");
             } else {
                 // upload file to folder and update the name to contact
                 contact.setImage(file.getOriginalFilename());
@@ -105,4 +110,24 @@ public class UserController {
 
     }
 
+    // show contacts handler
+    // per page=5[n] contacts
+    // current page=0[page]
+    @GetMapping("/show-contacts")
+    public String showContacts(Model m, Principal principal) {
+        m.addAttribute("title", "Show user contacts");
+
+        // send the list of contacts
+        String userName = principal.getName();
+        User user = this.userRepository.getUserByUserName(userName);
+
+        List<Contact> contacts = this.contactRepository.findContactsByUser(user.getId());
+        m.addAttribute("contacts", contacts);
+
+        // String userName = principal.getName();
+        // User user = this.userRepository.getUserByUserName(userName);
+        // List<Contact> contacts = user.getContacts();
+
+        return "normal/show_contacts";
+    }
 }

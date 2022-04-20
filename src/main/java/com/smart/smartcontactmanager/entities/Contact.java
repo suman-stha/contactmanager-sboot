@@ -25,7 +25,7 @@ public class Contact {
     @ManyToOne
     private User user;
 
-    @Column(length = 1000)
+    @Column(length = 5000)
     private String description;
 
     public int getcId() {
