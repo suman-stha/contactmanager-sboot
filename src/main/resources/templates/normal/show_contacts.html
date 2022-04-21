@@ -26,12 +26,13 @@
                     <tbody>
                         <tr th:each="c : ${contacts}">
                             <th scope="row" th:text="${'USER2020'+c.cId}">1</th>
-                            <td>
-                                <img class="my_profile_pciture" th:src="@{'/img/'+${c.image}}" alt="profile photo">
+                            <td><img class="my_profile_pciture" th:src="@{'/img/'+${c.image}}" alt="profile photo">
+
                                 <span th:text="${c.name}"></span>
                             </td>
                             <td>
-                                <a href="#" th:href="@{'/user/contact'+c.cId}"><span th:text="${c.email}"></span></a>
+                                <a href="#" th:href="@{'/user/'+${c.cId}+'/contact'}"><span
+                                        th:text="${c.email}"></span></a>
 
                             </td>
                             <td th:text="${c.phone}">@mdo</td>
