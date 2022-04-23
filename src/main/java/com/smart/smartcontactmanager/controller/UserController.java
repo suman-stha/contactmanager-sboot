@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 
 import com.smart.smartcontactmanager.dao.ContactRepository;
 import com.smart.smartcontactmanager.dao.UserRepository;
@@ -153,4 +154,26 @@ public class UserController {
 
         return "normal/contact_detail";
     }
+
+    // delete contact handler
+
+    @RequestMapping("/delete/{cid}")
+    @Transactional
+    public String deleteContact(@PathVariable("cid") Integer cId, Model model, Principal principal,
+            HttpSession session) {
+        System.out.println("CID" + cId);
+        Optional<Contact> contactOptional = this.contactRepository.findById(cId);
+        Contact contact = contactOptional.get();
+
+        User user = this.userRepository.getUserByUserName(principal.getName());
+        user.getContacts().remove(contact);
+        this.userRepository.save(user);
+
+        this.contactRepository.delete(contact);
+        System.out.println("Deleted");
+        session.setAttribute("message", new Message("Contact deleted Successfully...", "success"));
+
+        return "redirect:/user/show-contacts";
+    }
+
 }
