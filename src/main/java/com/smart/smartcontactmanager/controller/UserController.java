@@ -202,7 +202,9 @@ public class UserController {
             // image
             if (!file.isEmpty()) {
                 // delete old photo
-
+                File deleteFile = new ClassPathResource("static/img").getFile();
+                File file1 = new File(deleteFile, oldContactDetail.getImage());
+                file1.delete();
                 // update new photo
 
                 File saveFile = new ClassPathResource("static/img").getFile();
