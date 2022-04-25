@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -176,4 +177,38 @@ public class UserController {
         return "redirect:/user/show-contacts";
     }
 
+    // open update contact handler
+    @PostMapping("/update-contact/{cid}")
+
+    public String updateForm(@PathVariable("cid") Integer cid, Model model) {
+        model.addAttribute("title", "Update Contact");
+
+        Contact contact = this.contactRepository.findById(cid).get();
+        model.addAttribute("contact", contact);
+
+        return "normal/update_form";
+    }
+
+    // update contact handler
+    @RequestMapping(value = "/process-update", method = RequestMethod.POST) // @Postmapping("/process-update")//same
+
+    public String updateHandler(@ModelAttribute Contact contact, @RequestParam("profileImage") MultipartFile file,
+            Model model, HttpSession session, Principal principal) {
+
+        try {
+            // image
+            if (!file.isEmpty()) {
+
+            }
+            User user = this.userRepository.getUserByUserName(principal.getName());
+            contact.setUser(user);
+            this.contactRepository.save(contact);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("CONTACT NAME " + contact.getName());
+        System.out.println("CONTACT ID " + contact.getcId());
+        return "redirect:/user/show-contacts";
+
+    }
 }
