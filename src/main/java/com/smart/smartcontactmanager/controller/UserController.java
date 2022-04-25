@@ -196,19 +196,43 @@ public class UserController {
             Model model, HttpSession session, Principal principal) {
 
         try {
+
+            // old contact detail
+            Contact oldContactDetail = this.contactRepository.findById(contact.getcId()).get();
             // image
             if (!file.isEmpty()) {
+                // delete old photo
+
+                // update new photo
+
+                File saveFile = new ClassPathResource("static/img").getFile();
+
+                Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + file.getOriginalFilename());
+                Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+                contact.setImage(file.getOriginalFilename());
+
+            }
+
+            else {
+                contact.setImage(oldContactDetail.getImage());
 
             }
             User user = this.userRepository.getUserByUserName(principal.getName());
+
             contact.setUser(user);
+
             this.contactRepository.save(contact);
+
+            session.setAttribute("message", new Message("Your contact is updated", "success"));
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         System.out.println("CONTACT NAME " + contact.getName());
         System.out.println("CONTACT ID " + contact.getcId());
-        return "redirect:/user/show-contacts";
+
+        return "redirect:/user/" + contact.getcId() + "/contact";
+        // return "redirect:/user/show-contacts";
 
     }
 }
