@@ -110,7 +110,8 @@ public class UserController {
             // error message...
             session.setAttribute("message", new Message("Something went wrong!! Please try again", "danger"));
         }
-        return "normal/add_contact_form";
+        // return "normal/add_contact_form";
+        return "redirect:/user/show-contacts";
 
     }
 
