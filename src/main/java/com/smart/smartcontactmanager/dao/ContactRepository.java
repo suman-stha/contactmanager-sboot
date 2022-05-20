@@ -3,6 +3,7 @@ package com.smart.smartcontactmanager.dao;
 import java.util.List;
 
 import com.smart.smartcontactmanager.entities.Contact;
+import com.smart.smartcontactmanager.entities.User;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,5 +16,8 @@ public interface ContactRepository extends JpaRepository<Contact, Integer> {
     // currentPage-page
     // Contact per page-5
     public List<Contact> findContactsByUser(@Param("userId") int userId);
+
+    // search method
+    public List<Contact> findByNameContainingAndUser(String name, User user);
 
 }
