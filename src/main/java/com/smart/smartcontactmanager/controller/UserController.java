@@ -35,10 +35,13 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Autowired
     private UserRepository userRepository;
+    
     @Autowired
     private ContactRepository contactRepository;
 
@@ -276,8 +279,7 @@ public class UserController {
             // errror
             session.setAttribute("message", new Message("Wrong password please try again!! ", "danger"));
             return "redirect:/user/settings";
-
-        }
+         }
         return "redirect:/user/index";
     }
 }

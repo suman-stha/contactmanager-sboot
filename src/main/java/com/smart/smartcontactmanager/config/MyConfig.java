@@ -9,11 +9,15 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
 @EnableWebSecurity
+@EnableWebMvc
 public class MyConfig extends WebSecurityConfigurerAdapter {
 
+    public static final String[] PUBLIC_URLS={};
+    
     @Bean
     public UserDetailsService getUserDetailService() {
 
@@ -46,7 +50,8 @@ public class MyConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/user/**").hasRole("USER").antMatchers("/**")
-                .permitAll().and()
+                .permitAll()
+                .antMatchers("/v3/api-docs").permitAll().and()
                 .formLogin().loginPage("/signin")
                 .loginProcessingUrl("/dologin")
                 .defaultSuccessUrl("/user/index")
